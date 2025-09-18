@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Казино </title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: white;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: gold;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+            margin-bottom: 10px;
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); }
+            to { text-shadow: 0 0 20px gold, 0 0 30px orange; }
+        }
+        
+        .creator-chat {
+            margin: 15px 0;
+        }
+        
+        .chat-btn {
+            background: linear-gradient(to right, #ff0099, #493240);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .chat-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .chat-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .casino-container {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 5px solid gold;
+            text-align: center;
+        }
+        
+        .slot-machine {
+            background: #c0392b;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 5px solid #f39c12;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .slots {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .slot {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: black;
+            border: 3px solid #f39c12;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .controls {
+            margin: 30px 0 20px;
+        }
+        
+        .spin-btn {
+            background: linear-gradient(to right, #00b09b, #96c93d);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .spin-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        .spin-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .result {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            min-height: 80px;display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .win {
+            color: #7fff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            font-weight: bold;
+            font-size: 2rem;
+            animation: win-pulse 1s infinite;
+        }
+        
+        @keyframes win-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .lose {
+            color: #ff4d4d;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            font-weight: bold;
+            font-size: 2rem;
+        }
+        
+        .money {
+            font-size: 1.8rem;
+            color: gold;
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        .raccoon {
+            font-size: 5rem;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .message {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 1.2rem;
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 600px) {
+            .slot {
+                width: 80px;
+                height: 80px;
+                font-size: 2.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .spin-btn {
+                padding: 15px 30px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎰 Казино 🎰</h1>
+        <div class="raccoon">🦝</div>
+        <div class="creator-chat">
+            <button class="chat-btn" onclick="window.open('https://t.me/+ITV7UBPXkvI5MDYy', '_blank')">Чат создателя казино</button>
+        </div>
+    </div>
+    
+    <div class="casino-container">
+        <div class="message">
+           главное хату не депай
+        </div>
+        
+        <div class="money">кошелек: <span id="money">1000</span> ₽</div>
+        
+        <div class="slot-machine">
+            <div class="slots">
+                <div class="slot" id="slot1">7</div>
+                <div class="slot" id="slot2">7</div>
+                <div class="slot" id="slot3">7</div>
+            </div>
+            
+            <div class="controls">
+                <button class="spin-btn" onclick="spin()">депнуть</button>
+            </div>
+            
+            <div class="result" id="result">хана тебе</div>
+        </div>
+        
+        <div class="message">
+            <strong>правила:</strong> если выпало 777 - ты крутой богач
+           если выпало 111 - ты ло х нищий.
+        </div>
+    </div>
+
+    <script>
+        let money = 1000;
+        
+        function spin() {
+            const bet = 100;
+            if (money < bet) {
+                document.getElementById('result').innerHTML = у тебя денег нет ало";
+                return;
+            }
+            
+            money -= bet;
+            document.getElementById('money').textContent = money;
+            
+            // Анимация вращения
+            const slots = document.querySelectorAll('.slot');
+            slots.forEach(slot => {
+                slot.textContent = "?";
+            });
+            
+            document.getElementById('result').textContent = "Крутим...";
+            
+            // Генерируем случайные числа
+            setTimeout(() => {
+                const num1 = Math.floor(Math.random() * 9) + 1;
+                const num2 = Math.floor(Math.random() * 9) + 1;
+                const num3 = Math.floor(Math.random() * 9) + 1;
+                
+                document.getElementById('slot1').textContent = num1;
+                document.getElementById('slot2').textContent = num2;
+                document.getElementById('slot3').textContent = num3;
+                
+                // Проверяем результат
+                if (num1 === 7 && num2 === 7 && num3 === 7) {
+                    document.getElementById('result').innerHTML = '<span class="win">Вы выиграли в казино, депнув себя 0_0 Теперь вы можете жить богато :)</span>';
+                    money += 5000;
+                    document.getElementById('money').textContent = money;
+                } else if (num1 === 1 && num2 === 1 && num3 === 1) {
+                    document.getElementById('result').innerHTML = '<span class="lose">Вы проиграли в казино и депнули свою хату :(</span>';
+                } else {
+                    document.getElementById('result').textContent = "Повезет в следующий раз";
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
