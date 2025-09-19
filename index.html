@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Казино </title>
+    <title>казек</title>
     <style>
         * {
             box-sizing: border-box;
@@ -109,6 +109,14 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
+        .slot-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
         .controls {
             margin: 30px 0 20px;
         }
@@ -129,7 +137,6 @@
             transform: scale(1.05);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
         }
-        
         .spin-btn:active {
             transform: scale(0.98);
         }
@@ -137,7 +144,8 @@
         .result {
             margin-top: 20px;
             font-size: 1.5rem;
-            min-height: 80px;display: flex;
+            min-height: 80px;
+            display: flex;
             align-items: center;
             justify-content: center;
         }
@@ -190,6 +198,64 @@
             line-height: 1.5;
         }
         
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.8);
+            border: 5px solid gold;
+            animation: modal-appear 0.5s;
+        }
+        
+        @keyframes modal-appear {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .modal h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: gold;
+        }
+        
+        .modal p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+        
+        .modal-btn {
+            background: gold;
+            color: #1a2a6c;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .modal-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
         @media (max-width: 600px) {
             .slot {
                 width: 80px;
@@ -210,82 +276,143 @@
 </head>
 <body>
     <div class="header">
-        <h1>🎰 Казино 🎰</h1>
-        <div class="raccoon">🦝</div>
+        <h1>🎰казек дада🎰</h1>
         <div class="creator-chat">
-            <button class="chat-btn" onclick="window.open('https://t.me/+ITV7UBPXkvI5MDYy', '_blank')">Чат создателя казино</button>
+            <button class="chat-btn" onclick="window.open('https://t.me/+ITV7UBPXkvI5MDYy', '_blank')">чат создателя казино</button>
         </div>
-    </div>
+        </div>
     
     <div class="casino-container">
         <div class="message">
-           главное хату не депай
+            ты попал в казик для бота @for_activeinchat_bot, не депай хату или будешь нищим, я тебя предупредил
         </div>
         
-        <div class="money">кошелек: <span id="money">1000</span> ₽</div>
+        <div class="money">твой кошелек: <span id="money">1000</span> ₽</div>
         
         <div class="slot-machine">
             <div class="slots">
-                <div class="slot" id="slot1">7</div>
-                <div class="slot" id="slot2">7</div>
-                <div class="slot" id="slot3">7</div>
+                <div class="slot">
+                    <div class="slot-inner" id="slot1">7</div>
+                </div>
+                <div class="slot">
+                    <div class="slot-inner" id="slot2">7</div>
+                </div>
+                <div class="slot">
+                    <div class="slot-inner" id="slot3">7</div>
+                </div>
             </div>
             
             <div class="controls">
-                <button class="spin-btn" onclick="spin()">депнуть</button>
+                <button class="spin-btn" onclick="spin()">крутануть</button>
             </div>
             
-            <div class="result" id="result">хана тебе</div>
+            <div class="result" id="result">удачи</div>
         </div>
         
         <div class="message">
-            <strong>правила:</strong> если выпало 777 - ты крутой богач
-           если выпало 111 - ты ло х нищий.
+            <strong>правила:</strong> 777 - ты выиграл хату и стал богатым
+               111 - ты лох нищий хату проебал
+        </div>
+    </div>
+    
+    <div class="modal" id="winModal">
+        <div class="modal-content">
+            <h2>Поздравляем! 🎉</h2>
+            <p>Вы выиграли в казино, депнув себя 0_0 Теперь вы можете жить богато :)</p>
+            <button class="modal-btn" onclick="closeModal('winModal')">Круто!</button>
+        </div>
+    </div>
+    
+    <div class="modal" id="loseModal">
+        <div class="modal-content">
+            <h2>Увы! 😢</h2>
+            <p>Вы проиграли в казино и депнули свою хату :(</p>
+            <button class="modal-btn" onclick="closeModal('loseModal')">Попробовать ещё</button>
         </div>
     </div>
 
     <script>
         let money = 1000;
+        let isSpinning = false;
         
         function spin() {
+            if (isSpinning) return;
+            
             const bet = 100;
             if (money < bet) {
-                document.getElementById('result').innerHTML = у тебя денег нет ало";
+                document.getElementById('result').innerHTML = "У вас недостаточно денег для игры!";
                 return;
             }
             
             money -= bet;
             document.getElementById('money').textContent = money;
             
-            // Анимация вращения
-            const slots = document.querySelectorAll('.slot');
-            slots.forEach(slot => {
-                slot.textContent = "?";
-            });
-            
+            isSpinning = true;
             document.getElementById('result').textContent = "Крутим...";
             
+            // Анимация вращения
+            const slots = document.querySelectorAll('.slot-inner');
+            let spinCount = 0;
+            const maxSpins = 3;
+            const spinInterval = setInterval(() => {
+                slots.forEach(slot => {
+                    slot.textContent = Math.floor(Math.random() * 9) + 1;
+                    slot.style.transform = translateY(-20px);
+                    setTimeout(() => {
+                        slot.style.transform = translateY(0);
+                    }, 100);
+                });
+                
+                spinCount++;
+                if (spinCount > maxSpins * 10) {
+                    clearInterval(spinInterval);
+                    finishSpin();
+                }
+            }, 100);
+        }
+        
+        function finishSpin() {
             // Генерируем случайные числа
+            const num1 = Math.floor(Math.random() * 9) + 1;
+            const num2 = Math.floor(Math.random() * 9) + 1;
+            const num3 = Math.floor(Math.random() * 9) + 1;
+            
+            document.getElementById('slot1').textContent = num1;
+            document.getElementById('slot2').textContent = num2;
+            document.getElementById('slot3').textContent = num3;
+            
+            // Анимация появления результата
+            const slots = document.querySelectorAll('.slot-inner');
+            slots.forEach(slot => {
+                slot.style.transform = 'scale(1.2)'; setTimeout(() => {
+                    slot.style.transform = 'scale(1)';
+                }, 300);
+            });
+            
+            // Проверяем результат
             setTimeout(() => {
-                const num1 = Math.floor(Math.random() * 9) + 1;
-                const num2 = Math.floor(Math.random() * 9) + 1;
-                const num3 = Math.floor(Math.random() * 9) + 1;
-                
-                document.getElementById('slot1').textContent = num1;
-                document.getElementById('slot2').textContent = num2;
-                document.getElementById('slot3').textContent = num3;
-                
-                // Проверяем результат
                 if (num1 === 7 && num2 === 7 && num3 === 7) {
-                    document.getElementById('result').innerHTML = '<span class="win">Вы выиграли в казино, депнув себя 0_0 Теперь вы можете жить богато :)</span>';
+                    document.getElementById('result').innerHTML = '<span class="win">ДЖЕКПОТ! 🎉</span>';
                     money += 5000;
                     document.getElementById('money').textContent = money;
+                    setTimeout(() => {
+                        document.getElementById('winModal').style.display = 'flex';
+                    }, 1000);
                 } else if (num1 === 1 && num2 === 1 && num3 === 1) {
-                    document.getElementById('result').innerHTML = '<span class="lose">Вы проиграли в казино и депнули свою хату :(</span>';
+                    document.getElementById('result').innerHTML = '<span class="lose">ПРОИГРЫШ! 😢</span>';
+                    setTimeout(() => {
+                        document.getElementById('loseModal').style.display = 'flex';
+                    }, 1000);
                 } else {
-                    document.getElementById('result').textContent = "Повезет в следующий раз";
+                    document.getElementById('result').textContent = "Повезет в следующий раз!";
                 }
-            }, 1000);
+                
+                isSpinning = false;
+            }, 500);
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
         }
     </script>
 </body>
